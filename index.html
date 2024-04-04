@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Nicolelis's Publications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        #publicationsList {
+            list-style-type: none;
+            text-align: left;
+            padding: 0;
+        }
+        #publicationsList li {
+            margin-bottom: 10px;
+        }
+        img {
+            border-radius: 50%;
+            width: 328px;
+            height: 333px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://raw.githubusercontent.com/ezefranca/nicolelis/main/Miguel-Nicolels.jpg" alt="Miguel Nicolelis">
+    <div class="photo-credit">Direitos autorais: © Duke Photography.919-684-4391.www.dukephoto.duke.edu</div>
+    <h1>Miguel Nicolelis's Publications</h1>
+    <h2>Brazilian Neuroscientist</h2>
+    <ul id="publicationsList"></ul>
+
+    <script>
+        function loadPublications() {
+            const publicationsURL = "https://gist.githubusercontent.com/ezefranca/f56047a7e05426b1e23dfeda103f4eb9/raw/nicolelis.json";
+
+            fetch(publicationsURL)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(publications => {
+                    const publicationsList = document.getElementById('publicationsList');
+                    publications.forEach(pub => {
+                        const pubItem = document.createElement('li');
+                        pubItem.innerHTML = `<strong>${pub.year}</strong>: <a href="${pub.link}" target="_blank">${pub.title}</a> <i class="ai ai-google-scholar-square ai-1x"></i>`;
+                        publicationsList.appendChild(pubItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Could not load publications:', error);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadPublications);
+    </script>
+</body>
+</html>
